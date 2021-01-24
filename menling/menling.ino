@@ -9,7 +9,7 @@
 #include <WiFiClientSecureBearSSL.h>
 
 // Fingerprint for demo URL, expires on June 2, 2021, needs to be updated well before this date
-const char* fingerprint = "f1a76dcc044882a3783d3eaf61c90ef5f177bffb";
+const char* fingerprint = "75f3e223289667e7b4139cfe587a9752800058d7";
 
 char* ssid;
 char* pswd;
@@ -34,13 +34,14 @@ void getPostData() {
   HTTPClient https;
 
   Serial.print("[HTTPS] begin...\n");
-  if (https.begin(*client, "https://www.fastmock.site/mock/5a6d13e1c4fa471aef84f58c8df37ec1/mengling/send")) {  // HTTPS
+   String params="uid=1c0b7b3809c7b1ad9bb32cbbaf8fbcbc&topic=doorbell&msg=sdddd&wemsg=有人按门铃了";
+  if (https.begin(*client, "https://api.bemfa.com/api/device/v1/data/1/push/get?"+params)) {  // HTTPS
     Serial.print("[HTTPS] GET...\n");
     // start connection and send HTTP header
     int httpCode = https.GET();
 
-    String payload = https.getString();
-    Serial.println(payload);
+   // String payload = https.getString();
+    Serial.println(httpCode);
 
     https.end();
   }
@@ -102,8 +103,8 @@ void setup() {
 
   Serial.print("ESP8266 Connected to ");
   Serial.println(WiFi.SSID());              // WiFi名称
-  Serial.print("IP address:\t");
-  Serial.println(WiFi.localIP());
+  Serial.print("IP address:"+WiFi.localIP());
+  
 
   // IP
   String s = WiFi.SSID();
