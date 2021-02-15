@@ -48,7 +48,7 @@ void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
     Serial.println("ddf");
-   client.connect(ID_MQTT)
+   client.connect(ID_MQTT);
   }
 }
 
